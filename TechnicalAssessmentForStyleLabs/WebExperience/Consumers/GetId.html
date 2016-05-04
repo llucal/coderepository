@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="../Content/bootstrap.css" rel="stylesheet" />
+
+    <script src="../Scripts/jquery-1.11.0.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+    <input type="hidden" id="assetId" value="text" />
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Get (GET/id) an Asset</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <table id="assetTable"
+                       class="table table-bordered table-condensed table-striped">
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>FileName</th>
+                            <th>CreatedBy</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        asset Information
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="fileName">
+                                File Name
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="fileName" />
+                        </div>
+                        <div class="form-group">
+                            <label for="createdBy">
+                                CreatedBy
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="createdBy" />
+
+                        </div>
+                    </div>
+
+                 </div>
+            </div>
+        </div>
+        
+        
+        <div>
+            <button type="button" id="homeButton"
+                    class="btn btn-primary"
+                    onclick="goHomeClick();">
+                Home
+            </button>
+        </div>
+
+    </div>
+
+        <script>
+            $(document).ready(function () {
+                assetList();
+            });
+
+            function assetGet(ctl) {
+                // Get asset id from data- attribute
+                var id = $(ctl).data("id");
+
+                // Store asset id in hidden field
+                $("#assetid").val(id);
+
+                // Call Web API to get a asset
+                $.ajax({
+                    url: "/api/asset/" + id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (asset) {
+                        assetToFields(asset);
+
+                        //// Change Update Button Text
+                        //$("#updateButton").text("Update");
+                    },
+                    error: function (request, message, error) {
+                        handleException(request, message, error);
+                    }
+                });
+            }
+
+            function assetToFields(asset) {
+                $("#fileName").val(asset.FileName);
+                $("#createdBy").val(asset.CreatedBy);
+            }
+
+            // Get all assets to display
+            function assetList() {
+                // Call Web API to get a list of assets
+                $.ajax({
+                    url: '/api/asset/',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (assets) {
+                        assetListSuccess(assets);
+                    },
+                    error: function (request, message, error) {
+                        handleException(request, message, error);
+                    }
+                });
+            }
+
+            // Display all assets returned from Web API call
+            function assetListSuccess(assets) {
+                // Iterate over the collection of data
+                $.each(assets, function (index, asset) {
+                    // Add a row to the asset table
+                    assetAddRow(asset);
+                });
+            }
+
+            // Add asset row to <table>
+            function assetAddRow(asset) {
+                // First check if a <tbody> tag exists, add one if not
+                if ($("#assetTable tbody").length == 0) {
+                    $("#assetTable").append("<tbody></tbody>");
+                }
+
+                // Append row to <table>
+                $("#assetTable tbody").append(
+                  assetBuildTableRow(asset));
+            }
+
+            // Build a <tr> for a row of table data
+            function assetBuildTableRow(asset) {
+                var ret = "<tr>" +
+                      "<td>" +
+                        "<button type='button' " +
+                            "onclick='assetGet(this);' " +
+                            "class='btn btn-default' " +
+                            "data-id='" + asset.AssetId + "'>" +
+                            "<span class='glyphicon glyphicon-edit' />" +
+                        "</button>" +
+                      "</td>" +
+                      "<td>" + asset.FileName + "</td>" +
+                      "<td>" + asset.CreatedBy + "</td>" +
+
+                    "</tr>";
+
+                return ret;
+            }
+
+            // Handle click event on Update button
+            function updateClick() {
+            }
+
+            // Handle click event on Add button
+            function addClick() {
+            }
+
+            // Handle exceptions from AJAX calls
+            function handleException(request, message, error) {
+                var msg = "";
+
+                msg += "Code: " + request.status + "\n";
+                msg += "Text: " + request.statusText + "\n";
+                if (request.responseJSON != null) {
+                    msg += "Message" + request.responseJSON.Message + "\n";
+                }
+
+                alert(msg);
+            }
+
+
+            function goHomeClick() {
+                if (top == self)
+                    window.location.href = '/Default.html';
+            }
+        </script>
+</body>
+</html>
