@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{690A5E1F-0415-4422-B5A5-F670C456E238}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,6 +15,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebExperience", "WebExperience\WebExperience.csproj", "{A00AFD3E-9116-4387-AF44-CB392720827E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebExperience.Domain", "WebExperience.Domain\WebExperience.Domain.csproj", "{4A28B1A0-C725-44D5-9B63-D6E201A9ACEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{09938D0F-64BB-4C60-A3ED-EA357D03FD0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +36,10 @@ Global
 		{4A28B1A0-C725-44D5-9B63-D6E201A9ACEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A28B1A0-C725-44D5-9B63-D6E201A9ACEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A28B1A0-C725-44D5-9B63-D6E201A9ACEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09938D0F-64BB-4C60-A3ED-EA357D03FD0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09938D0F-64BB-4C60-A3ED-EA357D03FD0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09938D0F-64BB-4C60-A3ED-EA357D03FD0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09938D0F-64BB-4C60-A3ED-EA357D03FD0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
